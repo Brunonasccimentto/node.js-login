@@ -31,7 +31,9 @@ mongoose.connect(process.env.MONGO_URL, (err)=>{
 //     } 
 // }
 
-app.use(cors())
+app.use(cors({
+    origin: true
+  }))
 app.use(express.json())
 
 app.use("/user", userRouter)
