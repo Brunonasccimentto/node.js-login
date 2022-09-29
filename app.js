@@ -18,20 +18,20 @@ mongoose.connect(process.env.MONGO_URL, (err)=>{
     
 })
 
-var whiteList = ["http://localhost:3000", "https://brunonasccimentto.github.io/"]
+// var whiteList = ["http://localhost:3000", "https://brunonasccimentto.github.io/"]
 
-const options = {
-    origin: function(origin, callback){
-        if (whiteList.indexOf(origin) !== -1){
-            callback(null, true)
+// const options = {
+//     origin: function(origin, callback){
+//         if (whiteList.indexOf(origin) !== -1){
+//             callback(null, true)
 
-        } else {
-            callback(new Error("not allowed by CORS"))
-        }
-    } 
-}
+//         } else {
+//             callback(new Error("not allowed by CORS"))
+//         }
+//     } 
+// }
 
-app.use(cors(options))
+app.use(cors())
 app.use(express.json())
 
 app.use("/user", userRouter)
