@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
     email: {type: String, required: true}, 
     password: {type: String, required: true, minlength: 6, maxlength: 100},
     createdAt: {type: Date, default: Date.now},
-    visits: {type: Number, default: 0}        
+    visits: {type: Number, default: 0}, 
+    music: {type: Array, default: []}      
 })
 
 const USER = mongoose.model("User", userSchema) 

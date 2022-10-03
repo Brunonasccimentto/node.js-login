@@ -36,6 +36,52 @@ const userController = {
 
         return res.send(token)
         
+    },
+
+    update: async function (req, res){
+
+        const user = await USER.findOne({email: req.body.email})
+
+        const biblioteca = user.music
+
+        const newMusic = req.body.music
+        const filter = {email:req.body.email}
+        const update = {music: [...biblioteca, newMusic]}
+
+        function noAdd(music){
+            return music == newMusic
+        }
+
+        if(biblioteca.find(noAdd) == newMusic){
+            return res.status(400).send("this music already add")
+        }
+
+        const selectedUser = await USER.findOneAndUpdate(filter, update, {new: true})
+
+        return res.send(selectedUser)
+    },
+
+    delete: async function(req, res){
+
+        const filter = {email: req.body.email}
+        const musicToDelete = req.body.music
+
+        const deletedMusic = await USER.findOneAndUpdate(filter, {$pull: {music: musicToDelete}})
+
+        return res.send(deletedMusic)
+    },
+
+    userMusic: async function(req, res){
+
+        let filter = {email: req.body.email}
+    
+        const userMusics = await USER.findOne(filter)
+
+        try {
+            res.send(userMusics.music)
+        } catch (error) {
+            res.send(error)
+        }
     }
 }
 
