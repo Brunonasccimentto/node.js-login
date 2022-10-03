@@ -18,28 +18,14 @@ mongoose.connect(process.env.MONGO_URL, (err)=>{
     
 })
 
-const options = {
-    origin: "http://localhost:3000"
-}
+// const options = {
+//     origin: "http://localhost:3000"
+// }
 
-app.use(cors(options))
+app.use(cors())
 app.use(express.json())
 
 app.use("/user", userRouter)
-
-if(process.env.DOT_DEV != "development"){
-
-app.use(express.static(path.join(__dirname, "musicApp/music/build")))
-
-app.get("*", (req, res)=>{
-    res.sendFile(path.join(__dirname, "musicApp/music/build/index.html", function (err){
-        if(err){
-            res.status(500).redirect("user/login")
-        }
-    }))
-})
-
-}
 
 app.get("/", auth , (req, res)=>{
     
