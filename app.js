@@ -46,5 +46,5 @@ app.get("/", auth , (req, res)=>{
     
 })
 
-app.listen(process.env.PORT, () =>{ console.log("server running")})
+app.listen(process.env.PORT, () =>{ console.log("server running ok")})
 
